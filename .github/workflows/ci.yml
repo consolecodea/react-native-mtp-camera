@@ -100,9 +100,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Set gradlew permissions
-        run: chmod +x ./gradlew
-
       - name: Build example for Android
         env:
           JAVA_OPTS: '-XX:MaxHeapSize=6g'
