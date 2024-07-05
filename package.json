@@ -41,14 +41,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/abhi3691/react-native-mtp-camera.git"
+    "url": "git+https://github.com/consolecodea/react-native-mtp-camera.git"
   },
   "author": "abhinand <abhinandvk41@gmail.com> (https://github.com/abhi3691)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/abhi3691/react-native-mtp-camera/issues"
+    "url": "https://github.com/consolecodea/react-native-mtp-camera/issues"
   },
-  "homepage": "https://github.com/abhi3691/react-native-mtp-camera#readme",
+  "homepage": "https://github.com/consolecodea/react-native-mtp-camera#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
