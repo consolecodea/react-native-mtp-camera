@@ -1,24 +1,22 @@
 # react-native-mtp-camera
 
- get live image from nikon or canon  camera to mobile through usb
+get live image from nikon or canon camera to mobile through usb
 
 ## Installation
 
 ```sh
-npm install react-native-mtp-camera
+npm install @consolecodea/react-native-mtp-camera
 ```
 
 ## Usage
 
-
 ```js
-import { multiply } from 'react-native-mtp-camera';
+import { multiply } from '@consolecodea/react-native-mtp-camera';
 
 // ...
 
 const result = multiply(3, 7);
 ```
-
 
 ## Contributing
 
