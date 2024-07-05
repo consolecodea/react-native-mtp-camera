@@ -1,10 +1,14 @@
-import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { multiply } from '@consolecodea/react-native-mtp-camera';
-
-const result = multiply(3, 7);
+import React, { useState } from 'react';
 
 export default function App() {
+  const [result, setResult] = useState(0);
+
+  React.useEffect(() => {
+    let res = multiply(2, 4);
+    setResult(res);
+  }, []);
   return (
     <View style={styles.container}>
       <Text>Result: {result}</Text>
