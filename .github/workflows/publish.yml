@@ -1,0 +1,19 @@
+name: 'publish npm'
+
+on: push
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: node
+        uses: action/setup-nod@v2
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org
+        - name: publish
+          run: npm publish --access public
+          env:
+            NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
