@@ -1,5 +1,4 @@
-import * as React from 'react';
-
+import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { multiply } from '@consolecodea/react-native-mtp-camera';
 
