@@ -1,6 +1,6 @@
 {
   "name": "@consolecodea/react-native-mtp-camera",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": " get live image from nikon or canon  camera to mobile through usb",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
