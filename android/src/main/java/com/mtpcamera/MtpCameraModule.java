@@ -1,5 +1,7 @@
 package com.mtpcamera;
 
+import static com.mtpcamera.ImageLoadingService.EXTRA_USB_DEVICE;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -36,7 +38,6 @@ import java.util.concurrent.TimeUnit;
 
 @ReactModule(name = MtpCameraModule.NAME)
 public class MtpCameraModule extends NativeMtpCameraSpec {
-  public static final String EXTRA_USB_DEVICE = "extra_usb_device";
   public static final String NAME = "MtpCamera";
   private static final int EVENT_OBJECT_ADDED = 16386;
   private final ReactApplicationContext reactContext;

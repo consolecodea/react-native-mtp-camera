@@ -7,7 +7,7 @@ export const startService = async () => {
   try {
     await MtpCamera.startImageLoadingService();
   } catch (error) {
-    console.error('Failed to start service:', error);
+    throw error;
   }
 };
 
@@ -15,7 +15,7 @@ export const stopService = async () => {
   try {
     await MtpCamera.stopImageLoadingService();
   } catch (error) {
-    console.error('Failed to stop service:', error);
+    throw error;
   }
 };
 
