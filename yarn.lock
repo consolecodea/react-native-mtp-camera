@@ -1921,7 +1921,7 @@ __metadata:
     react-native-builder-bob: ^0.20.0
     release-it: ^15.0.0
     turbo: ^1.10.7
-    typescript: ^3.3.1
+    typescript: ^5.5.3
   peerDependencies:
     react: "*"
     react-native: "*"
@@ -12785,17 +12785,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^3.3.1":
-  version: 3.9.10
-  resolution: "typescript@npm:3.9.10"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 46c842e2cd4797b88b66ef06c9c41dd21da48b95787072ccf39d5f2aa3124361bc4c966aa1c7f709fae0509614d76751455b5231b12dbb72eb97a31369e1ff92
-  languageName: node
-  linkType: hard
-
-"typescript@npm:^4.6.4 || ^5.2.2":
+"typescript@npm:^4.6.4 || ^5.2.2, typescript@npm:^5.5.3":
   version: 5.5.3
   resolution: "typescript@npm:5.5.3"
   bin:
@@ -12805,17 +12795,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^3.3.1#~builtin<compat/typescript>":
-  version: 3.9.10
-  resolution: "typescript@patch:typescript@npm%3A3.9.10#~builtin<compat/typescript>::version=3.9.10&hash=3bd3d3"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: dc7141ab555b23a8650a6787f98845fc11692063d02b75ff49433091b3af2fe3d773650dea18389d7c21f47d620fb3b110ea363dab4ab039417a6ccbbaf96fc2
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@^4.6.4 || ^5.2.2#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.6.4 || ^5.2.2#~builtin<compat/typescript>, typescript@patch:typescript@^5.5.3#~builtin<compat/typescript>":
   version: 5.5.3
   resolution: "typescript@patch:typescript@npm%3A5.5.3#~builtin<compat/typescript>::version=5.5.3&hash=14eedb"
   bin:
