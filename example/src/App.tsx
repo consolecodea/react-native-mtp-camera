@@ -9,7 +9,10 @@ const MyComponent = () => {
   const [image, setImage] = React.useState<string>('');
   React.useEffect(() => {
     loadImagesFromDevice();
-    onNewImage((e: any) => setImage(`data:image/jpeg;base64,${e?.imageData}`));
+    const subscribe = onNewImage((e: any) =>
+      setImage(`data:image/jpeg;base64,${e?.imageData}`)
+    );
+    return subscribe.remove();
   }, []);
 
   const loadImagesFromDevice = async () => {
