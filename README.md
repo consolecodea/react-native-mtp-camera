@@ -2,6 +2,8 @@
 
 get live image from nikon or canon camera to mobile through usb
 
+[![npm version](https://img.shields.io/npm/v/@consolecodea/react-native-mtp-camera.svg)](https://www.npmjs.com/package/react-native-simple-recyclerlistview)
+[![appveyor](https://ci.appveyor.com/api/projects/status/foon3b5reptapqgo/branch/main?svg=true)](https://ci.appveyor.com/project/consolecodea/react-native-mtp-camera)
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
 ## Installation
