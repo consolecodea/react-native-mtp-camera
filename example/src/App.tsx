@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, PermissionsAndroid, Image } from 'react-native';
+import React from 'react';
+import { View, Image, StyleSheet } from 'react-native';
 import {
   startService,
   onNewImage,
-  stopService,
 } from '@consolecodea/react-native-mtp-camera';
 
 const MyComponent = () => {
-  const [image, setImage] = useState<string>('');
-  useEffect(() => {
+  const [image, setImage] = React.useState<string>('');
+  React.useEffect(() => {
     loadImagesFromDevice();
     onNewImage((e: any) => setImage(`data:image/jpeg;base64,${e?.imageData}`));
   }, []);
@@ -23,14 +22,21 @@ const MyComponent = () => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <Image
         source={{ uri: image }}
-        style={{ height: '100%', width: '100%' }}
+        style={styles.imageContainer}
         resizeMode="contain"
       />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  imageContainer: { height: '100%', width: '100%' },
+});
 
 export default MyComponent;

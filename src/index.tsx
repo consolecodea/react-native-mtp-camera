@@ -19,6 +19,6 @@ export const stopService = async () => {
   }
 };
 
-export const onNewImage = (callback: () => void) => {
+export const onNewImage = (callback: (e: any) => void) => {
   return mtpCameraEmitter.addListener('onNewImage', callback);
 };
