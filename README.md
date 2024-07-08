@@ -15,7 +15,7 @@ npm install @consolecodea/react-native-mtp-camera
 
 ## Android Setup
 
-# Permissions
+### Permissions
 
 To integrate react-native-mtp-camera into your Android project, follow these steps to configure your Android manifest:
 
