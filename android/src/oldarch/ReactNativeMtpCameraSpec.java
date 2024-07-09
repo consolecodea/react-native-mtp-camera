@@ -5,7 +5,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.Promise;
 
 abstract class ReactNativeMtpCameraSpec extends ReactContextBaseJavaModule {
-  NativeMtpCameraSpec(ReactApplicationContext context) {
+  ReactNativeMtpCameraSpec(ReactApplicationContext context) {
     super(context);
   }
 
