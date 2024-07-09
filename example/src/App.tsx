@@ -1,15 +1,31 @@
 import React from 'react';
-import { View, Image, StyleSheet, Alert } from 'react-native';
+import {
+  View,
+  Image,
+  StyleSheet,
+  Alert,
+  NativeEventEmitter,
+} from 'react-native';
 import {
   startService,
-  onNewImage,
+  cameraEventLister,
+  type cameraEventProps,
 } from '@consolecodea/react-native-mtp-camera';
+const eventEmitter = new NativeEventEmitter();
 
 const MyComponent = () => {
   const [image, setImage] = React.useState<string>('');
   React.useEffect(() => {
     loadImagesFromDevice();
-    onNewImage((e: any) => setImage(`data:image/jpeg;base64,${e?.imageData}`));
+    eventEmitter.addListener(
+      cameraEventLister.onNewImage,
+      (event: cameraEventProps) => {
+        setImage(event.imagePath);
+      }
+    );
+    return () => {
+      eventEmitter.removeAllListeners(cameraEventLister.onNewImage);
+    };
   }, []);
 
   const loadImagesFromDevice = async () => {

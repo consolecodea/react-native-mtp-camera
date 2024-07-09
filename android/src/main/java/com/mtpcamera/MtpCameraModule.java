@@ -16,6 +16,7 @@ import android.mtp.MtpDevice;
 import android.mtp.MtpEvent;
 import android.mtp.MtpObjectInfo;
 import android.os.Build;
+import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 
@@ -31,13 +32,15 @@ import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @ReactModule(name = MtpCameraModule.NAME)
-public class MtpCameraModule extends NativeMtpCameraSpec {
+public class MtpCameraModule extends ReactNativeMtpCameraSpec {
   public static final String NAME = "MtpCamera";
   private static final int EVENT_OBJECT_ADDED = 16386;
   private final ReactApplicationContext reactContext;
@@ -192,23 +195,60 @@ public class MtpCameraModule extends NativeMtpCameraSpec {
   }
 
   private void sendNewImageBroadcast(Bitmap bitmap) {
-    Intent intent = new Intent(ImageLoadingService.ACTION_NEW_IMAGE);
-    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-    byte[] byteArray = stream.toByteArray();
-    intent.putExtra(ImageLoadingService.EXTRA_IMAGE_DATA, Base64.encodeToString(byteArray, Base64.DEFAULT));
-    LocalBroadcastManager.getInstance(reactContext).sendBroadcast(intent);
+    try {
+      File imageFile = saveImageToFile(bitmap);
+
+      if (imageFile != null) {
+        // Convert bitmap to Base64 string
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        String imageBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+        // Broadcast intent with both imagePath and imageBase64
+        Intent intent = new Intent(ImageLoadingService.ACTION_NEW_IMAGE);
+        intent.putExtra(ImageLoadingService.EXTRA_IMAGE_DATA, imageFile.getAbsolutePath());
+        intent.putExtra("imageBase64", imageBase64);
+        LocalBroadcastManager.getInstance(reactContext).sendBroadcast(intent);
+      }
+    }
+    catch (IOException e) {
+      Log.e("MtpCameraModule", "Error saving image", e);
+    }
+
   }
+
+
+  private File saveImageToFile(Bitmap bitmap) throws IOException {
+    File cacheDir = reactContext.getCacheDir();
+    if (cacheDir == null) {
+      throw new IOException("Failed to get cache directory");
+    }
+
+    String fileName = "image_" + System.currentTimeMillis() + ".png";
+    File imageFile = new File(cacheDir, fileName);
+
+    try (FileOutputStream out = new FileOutputStream(imageFile)) {
+      bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+    }
+
+    return imageFile;
+  }
+
+
 
   private void initializeReceiver() {
     imageReceiver = new BroadcastReceiver() {
       @Override
       public void onReceive(Context context, Intent intent) {
         if (ImageLoadingService.ACTION_NEW_IMAGE.equals(intent.getAction())) {
-          String encodedImage = intent.getStringExtra(ImageLoadingService.EXTRA_IMAGE_DATA);
-          if (encodedImage != null && !encodedImage.isEmpty()) {
+          String imagePath = intent.getStringExtra(ImageLoadingService.EXTRA_IMAGE_DATA);
+          String imageBase64 = intent.getStringExtra("imageBase64");
+
+          if (imagePath != null && !imagePath.isEmpty() && imageBase64 != null && !imageBase64.isEmpty()) {
             WritableMap params = Arguments.createMap();
-            params.putString("imageData", encodedImage);
+            params.putString("imagePath", "file://" + imagePath); // Assuming you want to use this format
+            params.putString("imageBase64", "data:image/jpeg;base64," + imageBase64);
             sendEvent("onNewImage", params);
           }
         }

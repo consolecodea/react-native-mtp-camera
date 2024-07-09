@@ -1,7 +1,27 @@
-import { NativeEventEmitter } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
+const LINKING_ERROR =
+  `The package '@consolecodea/react-native-mtp-camera' doesn't seem to be linked. Make sure: \n\n` +
+  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
+  '- You rebuilt the app after installing the package\n' +
+  '- You are not using Expo Go\n';
 
-const MtpCamera = require('./NativeMtpCamera').default;
-const mtpCameraEmitter = new NativeEventEmitter(MtpCamera);
+// @ts-expect-error
+const isTurboModuleEnabled = global.__turboModuleProxy != null;
+
+const MtpCameraModule = isTurboModuleEnabled
+  ? require('./NativeMtpCamera').default
+  : NativeModules.MtpCamera;
+
+const MtpCamera = MtpCameraModule
+  ? MtpCameraModule
+  : new Proxy(
+      {},
+      {
+        get() {
+          throw new Error(LINKING_ERROR);
+        },
+      }
+    );
 
 export const startService = async () => {
   try {
@@ -19,6 +39,14 @@ export const stopService = async () => {
   }
 };
 
-export const onNewImage = (callback: (e: any) => void) => {
-  return mtpCameraEmitter.addListener('onNewImage', callback);
+export interface cameraEventLister {
+  onNewImage: string;
+}
+export interface cameraEventProps {
+  imagePath: string;
+  imageBase64: string;
+}
+
+export const cameraEventLister: cameraEventLister = {
+  onNewImage: 'onNewImage',
 };

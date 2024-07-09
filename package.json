@@ -1,12 +1,18 @@
 {
   "name": "@consolecodea/react-native-mtp-camera",
-  "version": "0.1.9",
-  "description": " get live image from nikon or canon  camera to mobile through usb",
-  "main": "lib/commonjs/index",
-  "module": "lib/module/index",
-  "types": "lib/typescript/src/index.d.ts",
-  "react-native": "src/index",
-  "source": "src/index",
+  "version": "0.2.1",
+  "description": "get live image from nikon or canon  camera to mobile through usb",
+  "source": "./src/index.tsx",
+  "main": "./lib/commonjs/index.cjs",
+  "module": "./lib/module/index.mjs",
+  "types": "./lib/typescript/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/typescript/src/index.d.ts",
+      "import": "./lib/module/index.mjs",
+      "require": "./lib/commonjs/index.cjs"
+    }
+  },
   "files": [
     "src",
     "lib",
@@ -69,10 +75,10 @@
     "prettier": "^3.0.3",
     "react": "18.2.0",
     "react-native": "0.74.3",
-    "react-native-builder-bob": "^0.20.0",
+    "react-native-builder-bob": "^0.25.0",
     "release-it": "^15.0.0",
     "turbo": "^1.10.7",
-    "typescript": "^5.5.3"
+    "typescript": "^5.2.2"
   },
   "resolutions": {
     "@types/react": "^18.2.44"
@@ -148,8 +154,18 @@
     "source": "src",
     "output": "lib",
     "targets": [
-      "commonjs",
-      "module",
+      [
+        "commonjs",
+        {
+          "esm": true
+        }
+      ],
+      [
+        "module",
+        {
+          "esm": true
+        }
+      ],
       [
         "typescript",
         {
@@ -164,8 +180,8 @@
     "jsSrcsDir": "src"
   },
   "create-react-native-library": {
-    "type": "module-new",
+    "type": "module-mixed",
     "languages": "java-objc",
-    "version": "0.37.1"
+    "version": "0.38.1"
   }
 }

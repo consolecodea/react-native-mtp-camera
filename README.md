@@ -101,8 +101,11 @@ This updated README will help users understand how to configure their Android pr
 import {
   startService,
   stopService,
-  onNewImage,
+  cameraEventLister,
+  type cameraEventProps,
 } from '@consolecodea/react-native-mtp-camera';
+import { NativeEventEmitter } from 'react-native';
+const eventEmitter = new NativeEventEmitter();
 
 // Start the image loading service
 startService()
@@ -123,21 +126,39 @@ stopService()
   });
 
 // Listen for new images
-const subscription = onNewImage((event) => {
-  console.log('New image received:', event);
-});
+  eventEmitter.addListener(
+      cameraEventLister.onNewImage,
+      (event: cameraEventProps) => {
+        setImage(event.imagePath);
+      }
+    );
+
 
 // Remember to remove the listener when it's no longer needed
-subscription.remove();
+ return () => {
+      eventEmitter.removeAllListeners(cameraEventLister.onNewImage);
+    };
 ```
 
 ## Props
 
-| Method                 | Description                        |
-| ---------------------- | ---------------------------------- |
-| `startService()`       | Starts the image loading service.  |
-| `stopService()`        | Stops the image loading service.   |
-| `onNewImage(callback)` | Sets up a listener for new images. |
+| Method           | Description                       |
+| ---------------- | --------------------------------- |
+| `startService()` | Starts the image loading service. |
+| `stopService()`  | Stops the image loading service.  |
+
+## Event Listeners
+
+| Listener                       | Description                             |
+| ------------------------------ | --------------------------------------- |
+| `cameraEventLister.onNewImage` | Triggered when a new image is received. |
+
+## Event Properties
+
+| Property                       | Description     |
+| ------------------------------ | --------------- |
+| `cameraEventProps.imagePath`   | Image file uri. |
+| `cameraEventProps.imageBase64` | Image base64.   |
 
 ## Contributing
 
