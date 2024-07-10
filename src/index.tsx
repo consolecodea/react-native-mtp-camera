@@ -1,5 +1,5 @@
 import { NativeModules, Platform } from 'react-native';
-
+import NativeReactNativeMtpCamera from './NativeReactNativeMtpCamera';
 const LINKING_ERROR =
   `The package '@consolecodea/react-native-mtp-camera' doesn't seem to be linked. Make sure: \n\n` +
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
@@ -10,7 +10,7 @@ const LINKING_ERROR =
 const isTurboModuleEnabled = global.__turboModuleProxy != null;
 
 const ReactNativeMtpCameraModule = isTurboModuleEnabled
-  ? require('./NativeReactNativeMtpCamera').default
+  ? NativeReactNativeMtpCamera
   : NativeModules.ReactNativeMtpCamera;
 
 const ReactNativeMtpCamera = ReactNativeMtpCameraModule

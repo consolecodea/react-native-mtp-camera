@@ -198,7 +198,7 @@ public class ReactNativeMtpCameraModule extends ReactNativeMtpCameraSpec {
       if (imageFile != null) {
         // Convert bitmap to Base64 string
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         String imageBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
@@ -222,11 +222,11 @@ public class ReactNativeMtpCameraModule extends ReactNativeMtpCameraSpec {
       throw new IOException("Failed to get cache directory");
     }
 
-    String fileName = "image_" + System.currentTimeMillis() + ".png";
+    String fileName = "image_" + System.currentTimeMillis() + ".jpg";
     File imageFile = new File(cacheDir, fileName);
 
     try (FileOutputStream out = new FileOutputStream(imageFile)) {
-      bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+      bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
     }
 
     return imageFile;
