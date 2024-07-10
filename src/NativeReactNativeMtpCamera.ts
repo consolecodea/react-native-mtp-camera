@@ -6,4 +6,4 @@ export interface Spec extends TurboModule {
   stopImageLoadingService(): Promise<void>;
 }
 
-export default TurboModuleRegistry.getEnforcing<Spec>('MtpCamera');
+export default TurboModuleRegistry.getEnforcing<Spec>('ReactNativeMtpCamera');

@@ -1,4 +1,4 @@
-package com.mtpcamera;
+package com.consolecodea.reactnativemtpcamera;
 
 import androidx.annotation.Nullable;
 
@@ -11,13 +11,13 @@ import com.facebook.react.TurboReactPackage;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MtpCameraPackage extends TurboReactPackage {
+public class ReactNativeMtpCameraPackage extends TurboReactPackage {
 
   @Nullable
   @Override
   public NativeModule getModule(String name, ReactApplicationContext reactContext) {
-    if (name.equals(MtpCameraModule.NAME)) {
-      return new MtpCameraModule(reactContext);
+    if (name.equals(ReactNativeMtpCameraModule.NAME)) {
+      return new ReactNativeMtpCameraModule(reactContext);
     } else {
       return null;
     }
@@ -29,10 +29,10 @@ public class MtpCameraPackage extends TurboReactPackage {
       final Map<String, ReactModuleInfo> moduleInfos = new HashMap<>();
       boolean isTurboModule = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
       moduleInfos.put(
-              MtpCameraModule.NAME,
+              ReactNativeMtpCameraModule.NAME,
               new ReactModuleInfo(
-                      MtpCameraModule.NAME,
-                      MtpCameraModule.NAME,
+                      ReactNativeMtpCameraModule.NAME,
+                      ReactNativeMtpCameraModule.NAME,
                       false, // canOverrideExistingModule
                       false, // needsEagerInit
                       true, // hasConstants

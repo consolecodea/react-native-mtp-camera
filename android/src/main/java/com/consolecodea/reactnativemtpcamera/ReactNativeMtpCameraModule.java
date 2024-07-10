@@ -1,6 +1,6 @@
-package com.mtpcamera;
+package com.consolecodea.reactnativemtpcamera;
 
-import static com.mtpcamera.ImageLoadingService.EXTRA_USB_DEVICE;
+import static com.consolecodea.reactnativemtpcamera.ImageLoadingService.EXTRA_USB_DEVICE;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -16,7 +16,6 @@ import android.mtp.MtpDevice;
 import android.mtp.MtpEvent;
 import android.mtp.MtpObjectInfo;
 import android.os.Build;
-import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 
@@ -28,7 +27,6 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import java.io.ByteArrayOutputStream;
@@ -39,9 +37,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-@ReactModule(name = MtpCameraModule.NAME)
-public class MtpCameraModule extends ReactNativeMtpCameraSpec {
-  public static final String NAME = "MtpCamera";
+public class ReactNativeMtpCameraModule extends ReactNativeMtpCameraSpec {
+  public static final String NAME = "ReactNativeMtpCamera";
   private static final int EVENT_OBJECT_ADDED = 16386;
   private final ReactApplicationContext reactContext;
   private BroadcastReceiver imageReceiver;
@@ -49,10 +46,11 @@ public class MtpCameraModule extends ReactNativeMtpCameraSpec {
   private MtpDevice mtpDevice;
   private int lastObjectHandle = -1;
 
-  public MtpCameraModule(ReactApplicationContext reactContext) {
-    super(reactContext);
-    this.reactContext = reactContext;
+  ReactNativeMtpCameraModule(ReactApplicationContext context) {
+    super(context);
+    this.reactContext = context;
     initializeReceiver();
+
   }
 
   @Override
@@ -60,7 +58,6 @@ public class MtpCameraModule extends ReactNativeMtpCameraSpec {
   public String getName() {
     return NAME;
   }
-
   @ReactMethod
   public void startImageLoadingService( Promise promise) {
     try {
@@ -266,4 +263,5 @@ public class MtpCameraModule extends ReactNativeMtpCameraSpec {
         .emit(eventName, params);
     }
   }
+
 }

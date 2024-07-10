@@ -1,4 +1,5 @@
 import { NativeModules, Platform } from 'react-native';
+
 const LINKING_ERROR =
   `The package '@consolecodea/react-native-mtp-camera' doesn't seem to be linked. Make sure: \n\n` +
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
@@ -8,12 +9,12 @@ const LINKING_ERROR =
 // @ts-expect-error
 const isTurboModuleEnabled = global.__turboModuleProxy != null;
 
-const MtpCameraModule = isTurboModuleEnabled
-  ? require('./NativeMtpCamera').default
-  : NativeModules.MtpCamera;
+const ReactNativeMtpCameraModule = isTurboModuleEnabled
+  ? require('./NativeReactNativeMtpCamera').default
+  : NativeModules.ReactNativeMtpCamera;
 
-const MtpCamera = MtpCameraModule
-  ? MtpCameraModule
+const ReactNativeMtpCamera = ReactNativeMtpCameraModule
+  ? ReactNativeMtpCameraModule
   : new Proxy(
       {},
       {
@@ -25,7 +26,7 @@ const MtpCamera = MtpCameraModule
 
 export const startService = async () => {
   try {
-    await MtpCamera.startImageLoadingService();
+    await ReactNativeMtpCamera.startImageLoadingService();
   } catch (error) {
     throw error;
   }
@@ -33,7 +34,7 @@ export const startService = async () => {
 
 export const stopService = async () => {
   try {
-    await MtpCamera.stopImageLoadingService();
+    await ReactNativeMtpCamera.stopImageLoadingService();
   } catch (error) {
     throw error;
   }

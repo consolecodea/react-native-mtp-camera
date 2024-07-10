@@ -1,4 +1,4 @@
-package com.mtpcamera;
+package com.consolecodea.reactnativemtpcamera;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -9,10 +9,8 @@ abstract class ReactNativeMtpCameraSpec extends ReactContextBaseJavaModule {
     super(context);
   }
 
-
-  public abstract void startImageLoadingService(Promise promise);
+ public abstract void startImageLoadingService(Promise promise);
 
 
   public abstract void stopImageLoadingService(Promise promise);
-
 }

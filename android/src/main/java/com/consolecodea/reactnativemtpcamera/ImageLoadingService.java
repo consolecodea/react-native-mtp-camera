@@ -1,4 +1,4 @@
-package com.mtpcamera;
+package com.consolecodea.reactnativemtpcamera;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -15,7 +15,6 @@ import androidx.core.content.ContextCompat;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.mtpcamera.R;
 
 public class ImageLoadingService extends Service {
   private static final int NOTIFICATION_ID = 123;
