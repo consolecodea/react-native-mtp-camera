@@ -1,32 +1,27 @@
-# This workflow will run tests using node and then publish a package to npm when a release is created
-
-name: Node.js Package
+name: 'Publish npm'
 
 on:
   release:
     types: [created]
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: node
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
-      - run: yarn install --frozen-lockfile
-      - run: yarn test
-
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: https://registry.npmjs.org/
-      - run: yarn install --frozen-lockfile
-      - run: yarn publish
+          node-version: 18
+          registry-url: https://registry.npmjs.org
+      - name: install dependencies
+        run: npm install
+      - name: install bob
+        run: npm install -g @react-native-community/bob
+      - name: initialize bob
+        run: npx bob init
+      - name: publish
+        run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
